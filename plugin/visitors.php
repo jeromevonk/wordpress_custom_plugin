@@ -2,12 +2,11 @@
 
 /**
  * @package JV_Visitors
- * @version 1.0.0
+ * @version 1.0.0s
  */
 /*
     Plugin Name: Visitors
-    Plugin URI:  http://wordpress.org/plugins/jvvisitors/
-    Description: Display IP, user agent and referrer of the website visitors
+    Description: Display IP address, user agent and referrer of the website visitors
     Author:      Jerome Vonk
     Version:     1.0.0
     Author URI:  http://jeromevonk.github.io
@@ -19,10 +18,7 @@
 // ------------------------------------------------------------------
 // Add a menu page
 // - Use the admin_menu hook
-// - Add a page called 'Visitors
-//
-// Reference:
-// // https://developer.wordpress.org/reference/hooks/admin_menu/
+// - Add a page called 'Visitors' to admin menu
 // ------------------------------------------------------------------
 function custom_admin_menu_item()
 {
@@ -40,12 +36,8 @@ add_action('admin_menu', 'custom_admin_menu_item');
 
 // ------------------------------------------------------------------
 // Store visitor info
-// - Use the wp_footer hook
+// - Use the wp_loaded hook
 // - Get IP, user agent and referrer from HTTP request headers
-//
-// Reference:
-// https://developer.wordpress.org/reference/hooks/wp_footer/
-// https://developer.wordpress.org/reference/functions/get_option/
 // ------------------------------------------------------------------
 function store_visitor_info()
 {
@@ -72,7 +64,7 @@ function store_visitor_info()
 
         $last_visitors = get_option('last_visitors', array());
 
-        // Limit the number of stored visitor data to, for example, 10.
+        // Limit the number of stored visitor data to 50
         $limit = 50;
         array_unshift($last_visitors, $visitor_data);
         $last_visitors = array_slice($last_visitors, 0, $limit);
@@ -81,9 +73,7 @@ function store_visitor_info()
     }
 }
 
-
-// ------------------------------
-add_action('wp_footer', 'store_visitor_info');
+add_action('wp_loaded', 'store_visitor_info');
 
 
 // ------------------------------------------------------------
