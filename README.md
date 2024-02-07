@@ -1,4 +1,4 @@
-# wordpress_custom_plugin
+# wordpress_visitors_plugin
 
 Code developer for the following article on Proxify's Journal
 
